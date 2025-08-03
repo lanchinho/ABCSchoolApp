@@ -34,4 +34,10 @@ public class UserService(HttpClient httpClient, ApiSettings apiSettings) : IUser
         var response = await _httpClient.GetAsync(_apiSettings.UserEndpoints.UserByIdEndpoint(userId));
         return await response.WrapToResponse<UserResponse>();
     }
+
+    public async Task<IResponseWrapper<string>> RegisterUserAsync(CreateUserRequest request)
+    {
+        var response = await _httpClient.PostAsJsonAsync(_apiSettings.UserEndpoints.Register, request)
+        return await response.WrapToResponse<string>();
+    }
 }

@@ -21,6 +21,7 @@ public class UserEndpoints
     public string ChangePassword { get; set; }
     public string All { get; set; }
     public string ById { get; set; }
+    public string Register { get; set; }
 
     public string UserByIdEndpoint(string userId)
     {

@@ -1,0 +1,77 @@
+﻿<MudForm @ref="_form" Model="CreateUserRequest">
+	<!--Modal é o mud dialog-->
+	<MudDialog>
+		<TitleContent>
+			<MudText>
+				<MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+				Register New User
+			</MudText>
+		</TitleContent>
+		<DialogContent>
+			<MudGrid>
+				<MudItem xs="12" md="6">
+					<MudTextField @bind-Value="CreateUserRequest.FirstName"
+								  Variant="Variant.Outlined"
+								  Margin="Margin.Dense"
+								  Label="First Name" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField @bind-Value="CreateUserRequest.LastName"
+								  Variant="Variant.Outlined"
+								  Margin="Margin.Dense"
+								  Label="Last Name" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField @bind-Value="CreateUserRequest.Email"
+								  Variant="Variant.Outlined"
+								  Margin="Margin.Dense"
+								  Label="E-mail" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField @bind-Value="CreateUserRequest.PhoneNumber"
+								  Variant="Variant.Outlined"
+								  Margin="Margin.Dense"
+								  Label="Phone Number" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField @bind-Value="CreateUserRequest.Password"
+								  Variant="Variant.Outlined"
+								  Margin="Margin.Dense"
+								  Label="Password"
+								  InputType="@_inputType"
+								  Adornment="Adornment.End"
+								  AdornmentIcon="@_passwordInputIcon"
+								  OnAdornmentClick="TogglePasswordVisibility"/>
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField @bind-Value="CreateUserRequest.ConfirmPassword"
+								  Variant="Variant.Outlined"
+								  Margin="Margin.Dense"
+								  Label="Confirm Password"
+								  InputType="@_confirmPasswordInputType"
+								  Adornment="Adornment.End"
+								  AdornmentIcon="@_confirmPasswordInputIcon"
+								  OnAdornmentClick="ToggleConfirmPasswordVisibility" />
+				</MudItem>
+
+				<MudItem xs="12" md="6">
+					<MudCheckBox @bind-Value="CreateUserRequest.IsActive"
+								 Label="Activate User?"
+								 Size="Size.Medium"
+								 Color="Color.Primary" />
+				</MudItem>	
+			</MudGrid>
+		</DialogContent>
+		<DialogActions>
+			<MudButton OnClick="CancelDialog" Class="mr-auto" Variant="Variant.Outlined">
+				<MudIcon Icon="@Icons.Material.Filled.Close" />
+				Cancel
+			</MudButton>
+			<MudButton Onclick="SubmitUserRegistrationAsync" Color="Color.Primary" Variant="Variant.Outlined">
+				<MudIcon Icon="@Icons.Material.Filled.Save" />
+				Register
+			</MudButton>
+		</DialogActions>
+	</MudDialog>
+</MudForm>
+
