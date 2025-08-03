@@ -1,0 +1,48 @@
+﻿@page "/login"
+@layout MainLayout
+@attribute [AllowAnonymous]
+
+<MudStack AlignItems="AlignItems.Center" Spacing="2">
+	<MudText Typo="Typo.h4" Align="Align.Center" GutterBottom="true">
+		Sign In
+	</MudText>
+	<MudText Typo="Typo.body2" Align="Align.Center">
+		Enter your credentials to get started
+	</MudText>
+</MudStack>
+<br />
+
+<MudForm @ref="@_from" Model="@_loginRequest">
+	<MudGrid>
+		<MudItem xs="12">
+			@*No mudblazor espeficiar sempre o tipo do text box (<MudTextField T="string"...)
+				ou fazer o binding com um model:
+			*@
+			<MudTextField @bind-Value="_loginRequest.Tenant" Label="Tenant" Variant="Variant.Outlined" />
+		</MudItem>
+		<MudItem xs="12">
+			<MudTextField @bind-Value="_loginRequest.Username" Label="Username/Email" Variant="Variant.Outlined" />
+		</MudItem>
+		<MudItem xs="12">
+			<MudTextField @bind-Value="_loginRequest.Password"
+				Label="Password"
+				Variant="Variant.Outlined"
+				InputType="@_inputType"
+				Adornment="Adornment.End"
+				AdornmentIcon="@_passwordInputIcon"
+				OnAdornmentClick="TogglePasswordVisibility"/>
+		</MudItem>
+		<MudItem xs="12">
+			<MudButton 
+				Variant="Variant.Filled"
+				Style="width: 100%" 
+				Color="Color.Dark"
+			    Size="Size.Large"
+			    StartIcon="@Icons.Material.TwoTone.Login"
+			    OnClick="HandleLoginAsync">
+				Sign In
+			</MudButton>
+		</MudItem>
+	</MudGrid>
+</MudForm>
+

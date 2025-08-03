@@ -1,0 +1,68 @@
+﻿<MudGrid>
+	<!--
+		Sistema de grids do mud tem 12 colunas ...
+		Em telas muito pequenas ocupar 2
+		Em telas pequenas ocupar 4
+		Em telas médias ocupar 3
+	-->
+	<MudItem xs="12" sm="4" md="3">
+		<MudCard Elevation="25">
+			<MudCardContent>
+				<MudStack AlignItems="AlignItems.Center"
+						  Justify="Justify.Center"
+						  Spacing="0"
+						  Class="mb-4">
+					<MudAvatar Color="Color.Secondary" Style="height:200px; width:200px">
+						@UserInitial
+					</MudAvatar>
+				</MudStack>
+				<MudText Align="Align.Center" Typo="Typo.h6">@FirstName @LastName</MudText>
+				<MudText Align="Align.Center">@Email</MudText>
+			</MudCardContent>
+		</MudCard>
+	</MudItem>
+	<MudItem xs="12" sm="8" md="9">
+		<!--Mudblazor tem 2 forms o básico e o EditForm
+			Btn submit só é usado no editform
+		-->
+		<MudForm @ref="_form" Model="@UpdateUserRequest">
+			<MudCard Elevation="25">
+				<MudCardHeader>
+					<CardHeaderContent>
+						<MudText>Profile Details</MudText>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent>
+					<MudGrid>
+						<MudItem xs="12" md="6">
+							<MudTextField @bind-Value="@UpdateUserRequest.FirstName"
+										  Variant="Variant.Text"
+										  Label="First Name" />
+						</MudItem>
+						<MudItem xs="12" md="6">
+							<MudTextField @bind-Value="@UpdateUserRequest.LastName"
+										  Variant="Variant.Text"
+										  Label="Last Name" />
+						</MudItem>
+						<MudItem xs="12" md="6">
+							<MudTextField @bind-Value="@UpdateUserRequest.PhoneNumber"
+										  Variant="Variant.Text"
+										  Label="Phone Number" />
+						</MudItem>
+					</MudGrid>
+				</MudCardContent>
+				<MudCardActions Class="pb-4 pl-4">
+					<MudButton Variant="Variant.Filled"
+							   Color="Color.Primary"
+							   Size="Size.Small"
+							   Class="ml-auto"
+							   OnClick="UpdateUserDetailsAsync">
+						Save Changes
+					</MudButton>
+				</MudCardActions>
+			</MudCard>
+		</MudForm>
+	</MudItem>
+</MudGrid>
+
+

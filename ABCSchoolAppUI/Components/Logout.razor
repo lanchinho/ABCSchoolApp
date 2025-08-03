@@ -1,0 +1,27 @@
+﻿<MudDialog>
+	<TitleContent>
+		<MudText Typo="Typo.h6">
+			<MudIcon Icon="@Icons.Material.Filled.Logout" Class="mr-3 mb-n1"/>
+			@Title
+		</MudText>
+	</TitleContent>
+	<DialogContent>
+		<MudText>
+			@ConfirmationMessage
+		</MudText>
+	</DialogContent>
+	<DialogActions>
+		<MudButton  OnClick="OnCancel" Color="Color.Error" Variant="Variant.Filled">
+			<MudText>
+				Cancel
+			</MudText>
+		</MudButton>
+		<MudButton OnClick="OnConfirmLogoutAsync" Color=@Color Variant="Variant.Filled">
+			<MudText>
+				@ButtonText
+			</MudText>
+		</MudButton>
+		</DialogActions>
+</MudDialog>
+
+

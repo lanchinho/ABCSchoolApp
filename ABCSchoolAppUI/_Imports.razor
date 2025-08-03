@@ -1,0 +1,33 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using ABCSchoolAppUI
+@using ABCSchoolAppUI.Layout
+@using MudBlazor
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using ABCSchoolAppUI.Pages.Auth
+@using global::App.Infrastructure.Services.Auth
+@using global::App.Infrastructure.Services.Identity
+@using ABCSchoolAppUI.Components
+@using global::App.Infrastructure.Services.Tenancy
+
+@attribute [Authorize]
+
+@*Imports que posso utilizar em vários componentes*@
+@inject ApplicationStateProvider _applicationStateProvider
+@inject NavigationManager _navigation
+@inject ITokenService _tokenService
+@inject IUserService _userService
+@inject ITenantService _tenantService
+
+
+@inject ISnackbar _snackbar
+@inject IDialogService _dialogService
+@* @inject IMudDialogInstance _dialogInstance *@
