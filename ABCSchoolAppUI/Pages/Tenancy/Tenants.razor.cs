@@ -39,7 +39,6 @@ public partial class Tenants
 
     private async Task OnBoardNewTenantAsync()
     {
-
         var parameters = new DialogParameters<CreateTenant>();
         //opções da modal
         var options = new DialogOptions

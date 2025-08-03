@@ -5,7 +5,7 @@ using MudBlazor;
 namespace ABCSchoolAppUI.Pages.Identity;
 public partial class RegisterUser
 {
-    private CreateUserRequest CreateUserRequest { get; set; } = default!;
+    private CreateUserRequest CreateUserRequest { get; set; } = new();
     [CascadingParameter] private IMudDialogInstance Dialog { get; set; }
     private InputType _inputType = InputType.Password;
     private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;

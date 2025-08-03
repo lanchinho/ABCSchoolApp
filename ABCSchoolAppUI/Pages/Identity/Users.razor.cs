@@ -1,3 +1,4 @@
+using ABCSchoolAppUI.Pages.Tenancy;
 using ABCShared.Library.Models.Responses.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -25,7 +26,7 @@ public partial class Users
         _isLoading = false;
     }
 
-    private async Task LoadUsersAsync() 
+    private async Task LoadUsersAsync()
     {
         var result = await _userService.GetUsersAsync();
         if (result.IsSuccessful)
@@ -39,14 +40,28 @@ public partial class Users
                 _snackbar.Add(msg, Severity.Warning);
             }
         }
-    } 
-	private void ReturnHome()
-	{
-        _navigation.NavigateTo("/");
-	}
+    }
 
-	private Task CreateUserAsync()
-	{
-		throw new NotImplementedException();
-	}
+    private async Task InvokeUserRegistrationDialogAsync()
+    {
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            BackdropClick = false,
+            FullWidth = true,
+            MaxWidth = MaxWidth.Small,
+            Position = DialogPosition.Center,
+        };
+
+        var dialog = await _dialogService.ShowAsync<RegisterUser>(title: null, options: options);
+        var result = await dialog.Result;
+        if (!result.Canceled)
+            await LoadUsersAsync();
+    }
+
+    private void ReturnHome()
+    {
+        _navigation.NavigateTo("/");
+    }
 }
