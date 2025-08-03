@@ -2,7 +2,14 @@
 	<Found Context="routeData">
 		<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
 			<NotAuthorized>
-				<Login/>
+				@if (context.User.Identity?.IsAuthenticated is true)
+				{
+					<NotAuthorized Message="If you believe this is an error, please contact support." />
+				}
+				else
+				{
+					<Login />
+				}
 			</NotAuthorized>
 		</AuthorizeRouteView>
 		<FocusOnNavigate RouteData="@routeData" Selector="h1" />
@@ -13,6 +20,6 @@
 			<LayoutView Layout="@typeof(MainLayout)">
 				<p role="alert">Sorry, there's nothing at this address.</p>
 			</LayoutView>
-		</CascadingAuthenticationState>		
+		</CascadingAuthenticationState>
 	</NotFound>
 </Router>

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 
 namespace App.Infrastructure.Services.Auth;
-internal class ShouldHavePermissionAttribute : AuthorizeAttribute
+public class ShouldHavePermissionAttribute : AuthorizeAttribute
 {
     public ShouldHavePermissionAttribute(string action, string feature)
     {

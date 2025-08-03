@@ -19,6 +19,13 @@ public class UserEndpoints
 {
     public string Update { get; set; }
     public string ChangePassword { get; set; }
+    public string All { get; set; }
+    public string ById { get; set; }
+
+    public string UserByIdEndpoint(string userId)
+    {
+        return $"{ById}{userId}";
+    }
 }
 
 public class TenantEndpoints

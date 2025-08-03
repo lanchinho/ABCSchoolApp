@@ -49,7 +49,7 @@ public class TokenService : ITokenService
             await _localStorageService.SetItemAsync(StorageConstants.AuthToken, token);
             await _localStorageService.SetItemAsync(StorageConstants.RefreshToken, result.Data.RefreshToken);
 
-            ((ApplicationStateProvider)_authStateProvider).MarkUserAuthenticated(request.Username);
+            ((ApplicationStateProvider)_authStateProvider).MarkUserAuthenticated();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return await ResponseWrapper.SuccessAsync();

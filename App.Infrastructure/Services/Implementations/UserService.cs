@@ -1,4 +1,5 @@
 ﻿using ABCShared.Library.Models.Requests.Users;
+using ABCShared.Library.Models.Responses.Users;
 using ABCShared.Library.Wrappers;
 using App.Infrastructure.Extensions;
 using App.Infrastructure.Services.Identity;
@@ -20,5 +21,17 @@ public class UserService(HttpClient httpClient, ApiSettings apiSettings) : IUser
     {
         var response = await _httpClient.PutAsJsonAsync(_apiSettings.UserEndpoints.ChangePassword, request);
         return await response.WrapToResponse<string>();
+    }
+
+    public async Task<IResponseWrapper<List<UserResponse>>> GetUsersAsync()
+    {
+        var response = await _httpClient.GetAsync(_apiSettings.UserEndpoints.All);
+        return await response.WrapToResponse<List<UserResponse>>();
+    }
+
+    public async Task<IResponseWrapper<UserResponse>> GetByIdAsync(string userId)
+    {
+        var response = await _httpClient.GetAsync(_apiSettings.UserEndpoints.UserByIdEndpoint(userId));
+        return await response.WrapToResponse<UserResponse>();
     }
 }

@@ -1,4 +1,7 @@
 ﻿@page "/tenants"
+@using ABCShared.Library.Constants
+
+@attribute [ShouldHavePermission(SchoolAction.Read, SchoolFeature.Tenants)]
 
 <Header OnReturn="ReturnClicked" Title="Tenants" Description="Manage Tenants" />
 
