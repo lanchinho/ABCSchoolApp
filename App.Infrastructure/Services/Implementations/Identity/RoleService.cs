@@ -1,8 +1,9 @@
 ﻿using ABCShared.Library.Models.Requests.Identity;
 using ABCShared.Library.Models.Responses.Identity;
 using ABCShared.Library.Wrappers;
+using App.Infrastructure.Extensions;
 using App.Infrastructure.Services.Identity;
-using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace App.Infrastructure.Services.Implementations.Identity;
 public class RoleService(HttpClient httpClient, ApiSettings apiSettings) : IRoleService
@@ -10,38 +11,45 @@ public class RoleService(HttpClient httpClient, ApiSettings apiSettings) : IRole
     private readonly HttpClient _httpClient = httpClient;
     private readonly ApiSettings _apiSettings = apiSettings;
 
-    public Task<IResponseWrapper<string>> CreateAsync(CreateRoleRequest request)
+    public async Task<IResponseWrapper<string>> CreateAsync(CreateRoleRequest request)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PostAsJsonAsync(_apiSettings.RoleEndpoints.Create, request);
+        return await response.WrapToResponse<string>();
     }
 
-    public Task<IResponseWrapper<string>> DeleteAsync(string roleId)
+    public async Task<IResponseWrapper<string>> DeleteAsync(string roleId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.DeleteAsync(_apiSettings.RoleEndpoints.GetDeleteEndpointUrl(roleId));
+        return await response.WrapToResponse<string>();
     }
 
-    public Task<IResponseWrapper<List<RoleResponse>>> GetRolesAsync()
+    public async Task<IResponseWrapper<List<RoleResponse>>> GetRolesAsync()
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync(_apiSettings.RoleEndpoints.All);
+        return await response.WrapToResponse<List<RoleResponse>>();
     }
 
-    public Task<IResponseWrapper<RoleResponse>> GetRoleWithoutPermissions(string roleId)
+    public async Task<IResponseWrapper<RoleResponse>> GetRoleWithoutPermissionsAsync(string roleId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync(_apiSettings.RoleEndpoints.GetByIdPartialEndpointUrl(roleId));
+        return await response.WrapToResponse<RoleResponse>();
     }
 
-    public Task<IResponseWrapper<RoleResponse>> GetRoleWithPermissions(string roleId)
+    public async Task<IResponseWrapper<RoleResponse>> GetRoleWithPermissionsAsync(string roleId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync(_apiSettings.RoleEndpoints.GetByIdEndpointUrl(roleId));
+        return await response.WrapToResponse<RoleResponse>();
     }
 
-    public Task<IResponseWrapper<string>> UpdateAsync(UpdateRoleRequest request)
+    public async Task<IResponseWrapper<string>> UpdateAsync(UpdateRoleRequest request)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.RoleEndpoints.Update, request);
+        return await response.WrapToResponse<string>();
     }
 
-    public Task<IResponseWrapper<string>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request)
+    public async Task<IResponseWrapper<string>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.RoleEndpoints.UpdatePermissions, request);
+        return await response.WrapToResponse<string>();
     }
 }

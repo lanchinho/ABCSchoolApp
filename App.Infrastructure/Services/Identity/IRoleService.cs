@@ -9,7 +9,7 @@ public interface IRoleService
     Task<IResponseWrapper<string>> CreateAsync(CreateRoleRequest request);
     Task<IResponseWrapper<string>> UpdateAsync(UpdateRoleRequest request);
     Task<IResponseWrapper<string>> DeleteAsync(string roleId);
-    Task<IResponseWrapper<RoleResponse>> GetRoleWithPermissions(string roleId);
-    Task<IResponseWrapper<RoleResponse>> GetRoleWithoutPermissions(string roleId);
+    Task<IResponseWrapper<RoleResponse>> GetRoleWithPermissionsAsync(string roleId);
+    Task<IResponseWrapper<RoleResponse>> GetRoleWithoutPermissionsAsync(string roleId);
     Task<IResponseWrapper<string>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request);
 }
