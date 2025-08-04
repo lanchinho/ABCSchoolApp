@@ -1,0 +1,54 @@
+﻿@page "/roles"
+@using ABCShared.Library.Constants
+@attribute [ShouldHavePermission(SchoolAction.Read, SchoolFeature.Roles)]
+
+<Header OnReturn="ReturnHome" Title="Roles" Description="Manage Roles" />
+<MudTable Items="RoleList"
+		  Loading="_isLoading"
+		  LoadingProgressColor="Color.Info"
+		  Elevation="25">
+	<ToolBarContent>
+		@if (_canCreateRole)
+		{
+			<MudFab StartIcon="@Icons.Material.Filled.Add"
+					IconSize="Size.Medium"
+					Size="Size.Small"
+					Class="mr-2" />
+		}
+	</ToolBarContent>
+	<HeaderContent>
+		<MudTh>Name</MudTh>
+		<MudTh>Description</MudTh>
+		<MudTh>Action</MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd DataLabel="Name">@context.Namme</MudTd>
+		<MudTd DataLabel="Description">@context.Description</MudTd>
+		<MudTd DataLabel="Actions">
+			<MudMenu Icon="@Icons.Material.Filled.MoreVert"
+					 Size="Size.Small"
+					 Color="Color.Secondary"
+					 TransformOrigin="Origin.TopLeft"
+					 AnchorOrigin="Origin.TopLeft">
+				@if (_canViewRolePermissions)
+				{
+					<MudMenuItem>View Permissions</MudMenuItem>
+				}
+				if (_canUpdateRole)
+				{
+					<MudMenuItem>Update</MudMenuItem>
+				}
+				if (_canDeleteRole)
+				{
+					<MudMenuItem>Delete</MudMenuItem>
+				}
+			</MudMenu>
+		</MudTd>
+	</RowTemplate>
+	<PagerContent>
+		<MudTablePager RowsPerPageString="@rowsPerPageString" InfoFormat="@infoFormat" />
+	</PagerContent>
+</MudTable>
+
+
+
