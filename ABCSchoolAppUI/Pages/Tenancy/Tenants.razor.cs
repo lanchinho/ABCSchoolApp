@@ -8,6 +8,8 @@ public partial class Tenants
 {
     public List<TenantResponse> TenantList { get; set; } = [];
     private bool _isLoading = true;
+    private string rowsPerPageString = "Rows per page:";
+    private string infoFormat = "{first_item}-{last_item} of {all_items}";
 
     protected async override Task OnInitializedAsync()
     {

@@ -19,6 +19,8 @@ public partial class Users
     private bool _isLoading = true;
     private bool _canCreateUsers;
     private bool _canViewRoles;
+    private string rowsPerPageString = "Rows per page:";
+    private string infoFormat = "{first_item}-{last_item} of {all_items}";
 
     protected override async Task OnInitializedAsync()
     {
