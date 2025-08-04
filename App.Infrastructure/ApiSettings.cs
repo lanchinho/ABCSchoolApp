@@ -1,4 +1,6 @@
-﻿namespace App.Infrastructure;
+﻿using MudBlazor;
+
+namespace App.Infrastructure;
 
 public class ApiSettings
 {
@@ -6,6 +8,7 @@ public class ApiSettings
     public TokenEndpoints TokenEndpoints { get; set; }
     public UserEndpoints UserEndpoints { get; set; }
     public TenantEndpoints TenantEndpoints { get; set; }
+    public RoleEndpoints RoleEndpoints { get; set; }
 }
 
 public class TokenEndpoints
@@ -38,6 +41,32 @@ public class UserEndpoints
     public string UpdateRolesEndpoint(string userId)
     {
         return $"{UpdateRoles}{userId}";
+    }
+}
+
+public class RoleEndpoints
+{
+    public string Create { get; set; }
+    public string Update { get; set; }
+    public string UpdatePermissions { get; set; }
+    public string Delete { get; set; }
+    public string All { get; set; }
+    public string ById { get; set; }
+    public string ByIdPartial { get; set; }
+
+    public string GetByIdEndpointUrl(string roleId)
+    {
+        return $"{ById}{roleId}";
+    }
+
+    public string GetByIdPartialEndpointUrl(string roleId)
+    {
+        return $"{ByIdPartial}{roleId}";
+    }
+
+    public string GetDeleteEndpointUrl(string roleId)
+    {
+        return $"{Delete}{roleId}";
     }
 }
 

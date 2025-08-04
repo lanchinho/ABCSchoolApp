@@ -5,7 +5,7 @@ using App.Infrastructure.Extensions;
 using App.Infrastructure.Services.Identity;
 using System.Net.Http.Json;
 
-namespace App.Infrastructure.Services.Implementations;
+namespace App.Infrastructure.Services.Implementations.Identity;
 public class UserService(HttpClient httpClient, ApiSettings apiSettings) : IUserService
 {
     private readonly HttpClient _httpClient = httpClient;
