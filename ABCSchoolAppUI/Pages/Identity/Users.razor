@@ -4,7 +4,7 @@
 @attribute [ShouldHavePermission(SchoolAction.Read, SchoolFeature.Users)]
 
 <Header OnReturn="ReturnHome" Title="Users" Description="Manage Users" />
-<MudTable Items="_userList"
+<MudTable Items="UserList"
 		  Loading="_isLoading"
 		  LoadingProgressColor="Color.Info"
 		  Elevation="25">
@@ -23,29 +23,29 @@
 		<MudTh>Active</MudTh>
 	</HeaderContent>
 	<RowTemplate>
-		<MudTd>@context.UserName</MudTd>
-		<MudTd>@context.FristName</MudTd>
-		<MudTd>@context.LastName</MudTd>
-		<MudTd>@context.PhoneNumber</MudTd>
-		<MudTd>
+		<MudTd DataLabel="User Name">@context.UserName</MudTd>
+		<MudTd DataLabel="First Name">@context.FirstName</MudTd>
+		<MudTd DataLabel="Last Name">@context.LastName</MudTd>
+		<MudTd DataLabel="Phone Number">@context.PhoneNumber</MudTd>
+		<MudTd DataLabel="Is Active">
 			<MudCheckBox @bind-Value="@context.IsActive"
 						 ReadOnly
 						 Color="Color.Secondary" />
 		</MudTd>
-		<MudTd>
+		<MudTd DataLabel="Actions">
 			<MudMenu Icon="@Icons.Material.Filled.MoreVert"
 					 Size="Size.Small"
 					 Color="Color.Secondary"
 					 TransformOrigin="Origin.TopLeft"
 					 AnchorOrigin="Origin.TopLeft">
-				<MudMenuItem>View Roles</MudMenuItem>
+				<MudMenuItem OnClick="@(() => GoToRoles(context.Id))">View Roles</MudMenuItem>
 				@if (context.IsActive)
 				{
-					<MudMenuItem>Deactivate</MudMenuItem>
+					<MudMenuItem OnClick="@(() => ChangeStatusAsync(context))">Deactivate</MudMenuItem>
 				}
 				else
 				{
-					<MudMenuItem>Activate</MudMenuItem>
+					<MudMenuItem OnClick="@(()=> ChangeStatusAsync(context))">Activate</MudMenuItem>
 				}
 			</MudMenu>
 		</MudTd>

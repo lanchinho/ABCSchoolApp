@@ -5,7 +5,6 @@ public class ApiSettings
     public string BaseApiUrl { get; set; }
     public TokenEndpoints TokenEndpoints { get; set; }
     public UserEndpoints UserEndpoints { get; set; }
-
     public TenantEndpoints TenantEndpoints { get; set; }
 }
 
@@ -22,10 +21,23 @@ public class UserEndpoints
     public string All { get; set; }
     public string ById { get; set; }
     public string Register { get; set; }
+    public string RolesById { get; set; }
+    public string UpdateRoles { get; set; }
+    public string UpdateStatus { get; set; }
 
     public string UserByIdEndpoint(string userId)
     {
         return $"{ById}{userId}";
+    }
+
+    public string RolesByIdEndpoint(string userId)
+    {
+        return $"{RolesById}{userId}";
+    }
+
+    public string UpdateRolesEndpoint(string userId)
+    {
+        return $"{UpdateRoles}{userId}";
     }
 }
 

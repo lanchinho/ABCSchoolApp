@@ -40,4 +40,22 @@ public class UserService(HttpClient httpClient, ApiSettings apiSettings) : IUser
         var response = await _httpClient.PostAsJsonAsync(_apiSettings.UserEndpoints.Register, request);
         return await response.WrapToResponse<string>();
     }
+
+    public async Task<IResponseWrapper<List<UserRoleResponse>>> GetUserRolesAsync(string userId)
+    {
+        var response = await _httpClient.GetAsync(_apiSettings.UserEndpoints.RolesByIdEndpoint(userId));
+        return await response.WrapToResponse<List<UserRoleResponse>>();
+    }
+
+    public async Task<IResponseWrapper<string>> UpdateUserRolesAsync(string userId, UserRolesRequest request)
+    {
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.UserEndpoints.UpdateRolesEndpoint(userId), request);
+        return await response.WrapToResponse<string>();
+    }
+
+    public async Task<IResponseWrapper<string>> ChangeUserStatusAsync(ChangeUserStatusRequest request)
+    {
+        var response = await _httpClient.PutAsJsonAsync(_apiSettings.UserEndpoints.UpdateStatus, request);
+        return await response.WrapToResponse<string>();
+    }
 }
