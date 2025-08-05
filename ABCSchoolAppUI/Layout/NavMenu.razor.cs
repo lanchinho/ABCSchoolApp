@@ -15,7 +15,7 @@ public partial class NavMenu
 
     private bool _canViewTenants;
     private bool _canViewUsers;
-
+    private bool _canViewRoles;
     protected override async Task OnParametersSetAsync()
     {
         var user = (await AuthState).User;
@@ -24,5 +24,8 @@ public partial class NavMenu
 
         _canViewUsers = await AuthService
               .HasPermissionAsync(user, SchoolFeature.Users, SchoolAction.Read);
+
+        _canViewRoles = await AuthService
+              .HasPermissionAsync(user, SchoolFeature.Roles, SchoolAction.Read);
     }
 }

@@ -22,7 +22,7 @@
 		<MudTh>Action</MudTh>
 	</HeaderContent>
 	<RowTemplate>
-		<MudTd DataLabel="Name">@context.Namme</MudTd>
+		<MudTd DataLabel="Name">@context.Name</MudTd>
 		<MudTd DataLabel="Description">@context.Description</MudTd>
 		<MudTd DataLabel="Actions">
 			<MudMenu Icon="@Icons.Material.Filled.MoreVert"
@@ -32,13 +32,13 @@
 					 AnchorOrigin="Origin.TopLeft">
 				@if (_canViewRolePermissions)
 				{
-					<MudMenuItem>View Permissions</MudMenuItem>
+					<MudMenuItem OnClick="(() => ViewRolePermissions(context.Id))">Permissions</MudMenuItem>
 				}
-				if (_canUpdateRole)
+				@if (_canUpdateRole)
 				{
 					<MudMenuItem>Update</MudMenuItem>
 				}
-				if (_canDeleteRole)
+				@if (_canDeleteRole)
 				{
 					<MudMenuItem>Delete</MudMenuItem>
 				}

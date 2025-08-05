@@ -56,6 +56,11 @@ public partial class Roles
         }
     }
 
+    private void ViewRolePermissions(string RoleId)
+    {
+        _navigation.NavigateTo($"/role-permissions/{RoleId}");
+    }
+
     private void ReturnHome()
     {
         _navigation.NavigateTo("/");
