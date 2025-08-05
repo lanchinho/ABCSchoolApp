@@ -7,6 +7,7 @@ using App.Infrastructure.Services.Auth;
 using App.Infrastructure.Services.Identity;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -45,7 +46,7 @@ public class TokenService : ITokenService
 
         if (result.IsSuccessful)
         {
-            var token = result.Data.Jwt;            
+            var token = result.Data.Jwt;
             await _localStorageService.SetItemAsync(StorageConstants.AuthToken, token);
             await _localStorageService.SetItemAsync(StorageConstants.RefreshToken, result.Data.RefreshToken);
 
@@ -55,7 +56,7 @@ public class TokenService : ITokenService
             return await ResponseWrapper.SuccessAsync();
         }
 
-        return await ResponseWrapper.FailAsync(result.Messages);           
+        return await ResponseWrapper.FailAsync(result.Messages);
     }
 
     public async Task<IResponseWrapper> LogoutAsync()
@@ -69,6 +70,62 @@ public class TokenService : ITokenService
         return await ResponseWrapper.SuccessAsync("Successfully Logged Out");
     }
 
+    public async Task<string> RefreshTokenAsync()
+    {
+        var currentJwt = await _localStorageService.GetItemAsync<string>(StorageConstants.AuthToken);
+        var currentRefreshToken = await _localStorageService.GetItemAsync<string>(StorageConstants.RefreshToken);
+
+        var response = await _httpClient.PostAsJsonAsync(_apiSettings.TokenEndpoints.RefreshToken, new RefreshTokenRequest
+        {
+            CurrentJwt = currentJwt,
+            CurrentRefreshToken = currentRefreshToken
+        });
+
+        var result = await response.WrapToResponse<TokenResponse>();
+        if (result.IsSuccessful)
+        {
+            currentJwt = result.Data.Jwt;
+            currentRefreshToken = result.Data.RefreshToken;
+
+            await _localStorageService.SetItemAsync(StorageConstants.AuthToken, currentJwt);
+            await _localStorageService.SetItemAsync(StorageConstants.RefreshToken, currentRefreshToken);
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", currentJwt);
+            return currentJwt;
+        }
+        else
+        {
+            throw new ApplicationException("Something went wrong during refresh token generation");
+        }
+    }
+
+    public async Task<string> TryForceRefreshTokenAsync()
+    {
+        var currentRefreshToken = await _localStorageService.GetItemAsync<string>(StorageConstants.RefreshToken);
+        if (string.IsNullOrEmpty(currentRefreshToken)) return string.Empty;
+
+        var authState = await _authStateProvider.GetAuthenticationStateAsync();
+
+        var user = authState.User;
+        var exp = user.FindFirst(c => c.Type.Equals("exp"))?.Value;
+        var expTime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(exp));
+        var currentTime = DateTime.UtcNow;
+
+        var diff = expTime - currentTime;
+        if (diff.TotalMinutes <= 5)
+        {
+            if (diff.TotalMinutes < 0)
+            {
+                await LogoutAsync();
+            }
+            else
+            {
+                return await RefreshTokenAsync();
+            }
+        }
+        return string.Empty;
+    }
+
     #region Helpers
     private static void AddTenantHeader(HttpRequestMessage request, string headerName, string value)
     {
@@ -77,6 +134,6 @@ public class TokenService : ITokenService
 
         request.Headers.TryAddWithoutValidation(headerName, value);
     }
-    
+
     #endregion
 }

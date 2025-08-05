@@ -8,7 +8,8 @@ public partial class MainLayout
 
     override protected void OnInitialized()
     {
-        base.OnInitialized();
+        _interceptor.RegisterEvent();
+        StateHasChanged();
     }
 
     private void ToggleDrawer()

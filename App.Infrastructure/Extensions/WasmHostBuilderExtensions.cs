@@ -3,7 +3,9 @@ using App.Infrastructure.Services.Auth;
 using App.Infrastructure.Services.Identity;
 using App.Infrastructure.Services.Implementations;
 using App.Infrastructure.Services.Implementations.Identity;
+using App.Infrastructure.Services.Implementations.Interceptors;
 using App.Infrastructure.Services.Implementations.Tenancy;
+using App.Infrastructure.Services.Interceptors;
 using App.Infrastructure.Services.Schools;
 using App.Infrastructure.Services.Tenancy;
 using Blazored.LocalStorage;
@@ -41,6 +43,7 @@ public static class WasmHostBuilderExtensions
             .AddScoped<IRoleService, RoleService>()
             .AddScoped<ISchoolsService, SchoolsService>()
             .AddScoped<ITenantService, TenantService>()
+            .AddScoped<IHttpRefreshTokenInterceptor, HttpRefreshTokenInterceptor>()
             .AddScoped(sp => sp
 				.GetRequiredService<IHttpClientFactory>()
 				.CreateClient(_clientName).EnableIntercept(sp))
