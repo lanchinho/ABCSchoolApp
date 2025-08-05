@@ -7,7 +7,6 @@ using App.Infrastructure.Services.Auth;
 using App.Infrastructure.Services.Identity;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 

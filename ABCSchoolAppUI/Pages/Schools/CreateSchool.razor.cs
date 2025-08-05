@@ -1,4 +1,5 @@
 using ABCShared.Library.Models.Requests.Schools;
+using App.Infrastructure.Validators;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -10,6 +11,7 @@ public partial class CreateSchool
     private CreateSchoolRequest CreateSchoolRequest { get; set; } = new();
     private MudForm _form;
     private MudDatePicker _datePicker = default!;
+    private CreateSchoolRequestValidator _validator = new();
 
     private DateTime? ValidUpToPicker
     {
@@ -20,6 +22,15 @@ public partial class CreateSchool
         {
             if (value.HasValue)
                 CreateSchoolRequest.EstablishedDate = value.Value;
+        }
+    }
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+        if (_form.IsValid)
+        {
+            await SaveSchoolAsync();
         }
     }
 
@@ -44,5 +55,6 @@ public partial class CreateSchool
     {
         _dialogInstance.Cancel();
     }
+
 }
 

@@ -1,4 +1,4 @@
-﻿<MudForm @ref="_form" Model="@CreateSchoolRequest">
+﻿<MudForm @ref="_form" Model="@CreateSchoolRequest" Validation="@(_validator.ValidateValue)">
 	<!--Modal é o mud dialog-->
 	<MudDialog>
 		<TitleContent>
@@ -11,10 +11,11 @@
 			<MudGrid>
 				<MudItem xs="12" md="6">
 					<MudTextField @bind-Value="CreateSchoolRequest.Name"
+								  For="@(() => CreateSchoolRequest.Name)"
 								  Variant="Variant.Outlined"
 								  Margin="Margin.Dense"
 								  Label="School Name" />
-				</MudItem>												
+				</MudItem>
 				<MudItem xs="12" md="6">
 					<MudDatePicker Context="PickerContext"
 								   @bind-Date="ValidUpToPicker"
@@ -22,7 +23,7 @@
 								   Margin="Margin.Dense"
 								   @ref="_datePicker"
 								   Label="Estabilished Date" />
-				</MudItem>								
+				</MudItem>
 			</MudGrid>
 		</DialogContent>
 		<DialogActions>
@@ -30,7 +31,10 @@
 				<MudIcon Icon="@Icons.Material.Filled.Close" />
 				Cancel
 			</MudButton>
-			<MudButton Onclick="SaveSchoolAsync" Color="Color.Primary" Variant="Variant.Outlined">
+			<MudButton Onclick="SubmitAsync"
+					   Color="Color.Primary"
+					   Variant="Variant.Outlined"
+					   Disabled="@(!_validator.Validate(CreateSchoolRequest).IsValid)">
 				<MudIcon Icon="@Icons.Material.Filled.Save" />
 				Create School
 			</MudButton>
