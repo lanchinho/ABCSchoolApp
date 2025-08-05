@@ -9,6 +9,7 @@ public class ApiSettings
     public UserEndpoints UserEndpoints { get; set; }
     public TenantEndpoints TenantEndpoints { get; set; }
     public RoleEndpoints RoleEndpoints { get; set; }
+    public SchoolEndpoints SchoolEndpoints { get; set; }
 }
 
 public class TokenEndpoints
@@ -93,4 +94,23 @@ public class TenantEndpoints
     {
         return $"{DeActivate}{tenantId}/{nameof(DeActivate)}";
     }
+}
+
+public class SchoolEndpoints
+{
+    public string Create { get; set; }
+    public string Update { get; set; }
+    public string Delete { get; set; }
+    public string ById { get; set; }
+    public string ByName { get; set; }
+    public string All { get; set; }
+
+    public string GetByIdEndpoint(string schoolId)
+        => $"{ById}{schoolId}";
+
+    public string GetByNameEndpoint(string schoolName)    
+        => $"{ById}{schoolName}";   
+
+    public string GetDeleteEndpoint(string schoolId)    
+        => $"{Delete}{schoolId}";    
 }

@@ -16,8 +16,4 @@
     <PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Schools\" />
-  </ItemGroup>
-
 </Project>

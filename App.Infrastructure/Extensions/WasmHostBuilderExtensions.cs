@@ -3,6 +3,7 @@ using App.Infrastructure.Services.Auth;
 using App.Infrastructure.Services.Identity;
 using App.Infrastructure.Services.Implementations.Identity;
 using App.Infrastructure.Services.Implementations.Tenancy;
+using App.Infrastructure.Services.Schools;
 using App.Infrastructure.Services.Tenancy;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +38,7 @@ public static class WasmHostBuilderExtensions
             .AddScoped<ITokenService, TokenService>()
             .AddScoped<IUserService, UserService>()
             .AddScoped<IRoleService, RoleService>()
+            .AddScoped<ISchoolsService, ISchoolsService>()
             .AddScoped<ITenantService, TenantService>()
             .AddScoped(sp => sp
 				.GetRequiredService<IHttpClientFactory>()

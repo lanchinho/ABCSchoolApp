@@ -16,6 +16,7 @@
 @using global::App.Infrastructure.Services.Auth
 @using global::App.Infrastructure.Services.Identity
 @using ABCSchoolAppUI.Components
+@using global::App.Infrastructure.Services.Schools
 @using global::App.Infrastructure.Services.Tenancy
 
 @attribute [Authorize]
@@ -26,6 +27,7 @@
 @inject ITokenService _tokenService
 @inject IUserService _userService
 @inject IRoleService _roleService
+@inject ISchoolsService _schoolsService
 @inject ITenantService _tenantService
 
 
