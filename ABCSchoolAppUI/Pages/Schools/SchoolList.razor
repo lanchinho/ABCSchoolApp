@@ -1,46 +1,43 @@
-﻿<!--TODO: implementar criação, update e relete de role...-->
-@page "/roles"
+﻿@page "/schools"
 @using ABCShared.Library.Constants
-@attribute [ShouldHavePermission(SchoolAction.Read, SchoolFeature.Roles)]
 
-<Header OnReturn="ReturnHome" Title="Roles" Description="Manage Roles" />
-<MudTable Items="RoleList"
+@attribute [ShouldHavePermission(SchoolAction.Read, SchoolFeature.Schools)]
+
+<Header OnReturn="ReturnHome" Title="Schools" Description="Manage Schools" />
+
+<MudTable Items="Schools"
 		  Loading="_isLoading"
 		  LoadingProgressColor="Color.Info"
 		  Elevation="25">
 	<ToolBarContent>
-		@if (_canCreateRole)
+		@if (_canCreateSchool)
 		{
 			<MudFab StartIcon="@Icons.Material.Filled.Add"
 					IconSize="Size.Medium"
+					OnClick="OnBoardNewSchoolAsync"
 					Size="Size.Small"
 					Class="mr-2" />
 		}
 	</ToolBarContent>
 	<HeaderContent>
 		<MudTh>Name</MudTh>
-		<MudTh>Description</MudTh>
-		<MudTh Style="text-align:right">Action</MudTh>
+		<MudTh>Estabilished Date</MudTh>
+		<MudTh Style="text-align:right">Actions</MudTh>
 	</HeaderContent>
 	<RowTemplate>
 		<MudTd DataLabel="Name">@context.Name</MudTd>
-		<MudTd DataLabel="Description">@context.Description</MudTd>
-		<MudTd DataLabel="Actions">
+		<MudTd DataLabel="Estabilished Date">@context.EstablishedDate.ToString("dd/MM/yyyy")</MudTd>
+		<MudTd Style="text-align:right" DataLabel="Actions">
 			<MudMenu Icon="@Icons.Material.Filled.MoreVert"
 					 Size="Size.Small"
 					 Color="Color.Secondary"
 					 TransformOrigin="Origin.TopLeft"
-					 AnchorOrigin="Origin.TopLeft"
-					 Style="text-align:right">
-				@if (_canViewRolePermissions)
-				{
-					<MudMenuItem OnClick="(() => ViewRolePermissions(context.Id))">Permissions</MudMenuItem>
-				}
-				@if (_canUpdateRole)
+					 AnchorOrigin="Origin.TopLeft">
+				@if (_canUpdateSchool)
 				{
 					<MudMenuItem>Update</MudMenuItem>
 				}
-				@if (_canDeleteRole)
+				@if (_canDeleteSchool)
 				{
 					<MudMenuItem>Delete</MudMenuItem>
 				}
@@ -51,6 +48,5 @@
 		<MudTablePager RowsPerPageString="@rowsPerPageString" InfoFormat="@infoFormat" />
 	</PagerContent>
 </MudTable>
-
 
 

@@ -23,7 +23,7 @@
 		<MudTh>E-mail</MudTh>
 		<MudTh>Expiry Date</MudTh>
 		<MudTh>Active</MudTh>
-		<MudTh>Actions</MudTh>
+		<MudTh Style="text-align:right">Actions</MudTh>
 	</HeaderContent>
 	<RowTemplate>
 		<MudTd>@context.Identifier</MudTd>
@@ -41,7 +41,8 @@
 					 Size="Size.Small"
 					 Color="Color.Secondary"
 					 TransformOrigin="Origin.TopLeft"
-					 AnchorOrigin="Origin.TopLeft">
+					 AnchorOrigin="Origin.TopLeft"
+					 Style="text-align:right">
 				<MudMenuItem OnClick="@(() => UpgradeSubscriptionAsync(context))">Upgrade</MudMenuItem>
 				@if (context.IsActive)
 				{
