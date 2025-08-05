@@ -1,7 +1,82 @@
 ﻿@page "/"
+@using MudBlazor
 
-<PageTitle>Home</PageTitle>
+<MudContainer MaxWidth="MaxWidth.False" Class="px-0">
+	<!-- ---------- FEATURES ---------- -->
+	<MudContainer MaxWidth="MaxWidth.Large" Class="py-1">
 
-<h1>Hello, world!</h1>
+		<MudText Typo="Typo.h4" Align="Align.Center" GutterBottom="true">
+			Why enroll in the <span class="font-weight-bold text-success">FullStack Multitenancy&nbsp;Course</span>?
+		</MudText>
 
-Welcome to your new app.
+
+		<!-- 3-up on desktop, 2-up on tablet, 1-up on mobile -->
+		<MudGrid GutterSpacing="3" Class="mt-4">
+			@foreach (var feature in _features)
+			{
+				<MudItem xs="12" sm="6" md="4">
+					<MudCard Elevation="3" Class="h-100">
+						<MudCardContent Class="d-flex flex-column align-center text-center pa-5">
+
+							<MudIcon Icon="@feature.Icon"
+									 Color="Color.Primary"
+									 Size="Size.Large" />
+
+							<MudText Typo="Typo.h6" Class="mt-3 mb-1">
+								@feature.Title
+							</MudText>
+
+							<MudText Typo="Typo.body2">
+								@feature.Description
+							</MudText>
+						</MudCardContent>
+					</MudCard>
+				</MudItem>
+			}
+		</MudGrid>
+	</MudContainer>
+
+</MudContainer>
+
+@code {
+	private readonly FeatureCard[] _features =
+	{
+		new FeatureCard(Icons.Material.Filled.Domain,
+			"Tenant Strategies",
+			"Database-per-tenant or Shared Database -> switch at runtime to suit any SaaS tier."),
+
+		new FeatureCard(Icons.Material.Filled.Subscriptions,
+			"Tenant Subscription Mgmt.",
+			"Each tenant will have their own subscription expiry date."),
+
+		new FeatureCard(Icons.Material.Filled.AccountCircle,
+			"User Management",
+			"Dynamically Register Users for your tenant. Active or deactive them on demand"),
+
+		new FeatureCard(Icons.Material.Filled.Shield,
+			"Role & Permission Control",
+			"Dynamically create roles, assign permissions/claims to roles for granular control."),
+
+		new FeatureCard(Icons.Material.Filled.GppGood,
+			"Component Authorization",
+			"Route guards, menu trimming and AuthorizeView powered by live user claims."),
+
+		new FeatureCard(Icons.Material.Filled.VerifiedUser,
+			"Auth-State Mgmt. (Blazor)",
+			"Custom AuthenticationStateProvider keeps UI in sync with silent token refreshes."),
+
+		new FeatureCard(Icons.Material.Filled.Autorenew,
+			"Silent Token Refresh",
+			"HTTP interceptor renews JWTs in the background for uninterrupted sessions."),
+
+		new FeatureCard(Icons.Material.Filled.Dns,
+			"Dependency Injection Ready",
+			"Learn about how to register services into DI container."),
+
+		new FeatureCard(Icons.Material.Filled.EventBusy,
+			"Blazor Component LifeCycle Hooks",
+			"Learn about all Blazor component lifecycle hooks - demo provided")
+	};
+
+	private record FeatureCard(string Icon, string Title, string Description);
+}
